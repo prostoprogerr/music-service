@@ -1,0 +1,79 @@
+{% extends 'similarity/base.html' %}
+{% block content %}
+<h2>🎵 {{ track.artist }} – {{ track.name }}</h2>
+<p class="text-muted">Выберите треки для добавления в плейлист:</p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="add_to_playlist" value="1">
+
+    <ul class="list-unstyled">
+        <li class="d-flex align-items-center gap-3 p-3 mb-2 bg-light rounded-3">
+            <input class="form-check-input" type="checkbox" name="track_ids" value="{{ track.id }}" checked style="width: 20px; height: 20px;">
+            <div class="flex-grow-1">
+                <strong>{{ track.artist }} – {{ track.name }}</strong>
+                <span class="badge bg-primary ms-2">оригинал</span>
+            </div>
+            <div>
+                {% if track.preview_url %}
+                    <audio controls style="max-width: 220px;">
+                        <source src="{{ track.preview_url }}" type="audio/mpeg">
+                    </audio>
+                {% else %}
+                    <span class="text-muted">нет превью</span>
+                {% endif %}
+            </div>
+        </li>
+
+        {% for sim_track in similar_tracks %}
+        <li class="d-flex align-items-center gap-3 p-3 mb-2 bg-white rounded-3 border">
+            <input class="form-check-input" type="checkbox" name="track_ids" value="{{ sim_track.id }}" checked style="width: 20px; height: 20px;">
+            <div class="flex-grow-1">
+                <strong>{{ sim_track.artist }} – {{ sim_track.name }}</strong>
+                <span class="badge bg-secondary ms-2">похожий</span>
+            </div>
+            <div>
+                {% if sim_track.preview_url %}
+                    <audio controls style="max-width: 220px;">
+                        <source src="{{ sim_track.preview_url }}" type="audio/mpeg">
+                    </audio>
+                {% else %}
+                    <span class="text-muted">нет превью</span>
+                {% endif %}
+            </div>
+        </li>
+        {% empty %}
+            <li class="text-muted">Похожих треков не найдено</li>
+        {% endfor %}
+    </ul>
+
+    <div class="mt-4">
+        <label for="playlistSelect" class="form-label fw-bold">Добавить в плейлист:</label>
+        <select class="form-select" id="playlistSelect" name="playlist_id" style="max-width: 300px;">
+            <option value="new">✨ Создать новый плейлист</option>
+            {% for pl in playlists %}
+                <option value="{{ pl.id }}">{{ pl.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="newPlaylistName" class="mt-2" style="display: none;">
+        <label for="newPlaylistNameInput" class="form-label">Название нового плейлиста:</label>
+        <input type="text" class="form-control" id="newPlaylistNameInput" name="new_playlist_name" style="max-width: 300px;" placeholder="Мой плейлист">
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">➕ Добавить в плейлист</button>
+</form>
+
+<script>
+    const select = document.getElementById('playlistSelect');
+    const newNameDiv = document.getElementById('newPlaylistName');
+    select.addEventListener('change', function() {
+        if (this.value === 'new') {
+            newNameDiv.style.display = 'block';
+        } else {
+            newNameDiv.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'similarity/base.html' %}
+{% block content %}
+<h2>Ваши плейлисты</h2>
+<ul>
+    {% for pl in playlists %}
+        <li>
+            <a href="{% url 'playlist_detail' pl.id %}">{{ pl.name }}</a>
+            (создан {{ pl.created_at }})
+        </li>
+    {% empty %}
+        <li>У вас пока нет плейлистов</li>
+    {% endfor %}
+</ul>
+{% endblock %}

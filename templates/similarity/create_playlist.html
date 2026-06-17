@@ -1,0 +1,16 @@
+{% extends 'similarity/base.html' %}
+{% block content %}
+<h2>Создать плейлист</h2>
+<form method="post">
+    {% csrf_token %}
+    <label>Название: <input type="text" name="name" required></label><br><br>
+    <h3>Выберите треки:</h3>
+    {% for track in tracks %}
+        <label>
+            <input type="checkbox" name="tracks" value="{{ track.id }}">
+            {{ track.artist }} – {{ track.name }}
+        </label><br>
+    {% endfor %}
+    <br><button type="submit">Создать</button>
+</form>
+{% endblock %}

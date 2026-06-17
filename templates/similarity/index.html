@@ -1,0 +1,30 @@
+{% extends 'similarity/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <h2 class="text-center mb-4">Найдите похожую музыку за секунды</h2>
+        <p class="lead text-center">
+            Наш сервис помогает диджеям, музыкальным редакторам и просто любителям находить треки,
+            которые звучат похоже на ваши любимые композиции.
+        </p>
+        <hr>
+        <div class="row mt-4">
+            <div class="col-md-4 text-center">
+                <h4>🔍 Введите трек</h4>
+                <p>Укажите исполнителя и название, чтобы начать поиск.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4>🎶 Получите рекомендации</h4>
+                <p>Система подберёт похожие треки на основе базы Deezer.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4>📀 Создайте плейлист</h4>
+                <p>Добавьте понравившиеся треки в свой плейлист и слушайте фрагменты.</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/add/" class="btn btn-primary btn-lg">Начать поиск</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
