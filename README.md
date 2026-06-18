@@ -13,13 +13,13 @@
 
 ## Скриншоты
 
-https://raw.githubusercontent.com/prostoprogerr/music-service/refs/heads/main/music_project/main.jpg
+https://raw.githubusercontent.com/prostoprogerr/music-service/refs/heads/main/screenshots/main.jpg
 *Главная страница с приветствием и навигацией.*
 
-https://raw.githubusercontent.com/prostoprogerr/music-service/refs/heads/main/music_project/search.jpg
+https://raw.githubusercontent.com/prostoprogerr/music-service/refs/heads/main/screenshots/search.jpg
 *Список похожих треков с плеерами и возможностью выбора для плейлиста.*
 
-https://raw.githubusercontent.com/prostoprogerr/music-service/refs/heads/main/music_project/playlist_screen.jpg
+https://raw.githubusercontent.com/prostoprogerr/music-service/refs/heads/main/screenshots/playlist_screenshot.jpg
 *Просмотр сохранённого плейлиста с треками и плеерами.*
 
 ## Как запустить проект локально
