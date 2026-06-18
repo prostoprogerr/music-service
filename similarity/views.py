@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Track, Similarity, Playlist
 from .deezer_client import get_similar_tracks, get_preview_url
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'similarity/index.html')
@@ -124,3 +127,32 @@ def playlist_detail(request, playlist_id):
     playlist = get_object_or_404(Playlist, id=playlist_id)
     tracks = playlist.tracks.all()
     return render(request, 'similarity/playlist_detail.html', {'playlist': playlist, 'tracks': tracks})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'similarity/register.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'similarity/login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('index')
